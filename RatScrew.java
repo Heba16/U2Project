@@ -9,7 +9,7 @@ public class RatScrew {
         Random random = new Random();
 
         String[] possibleCards = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "King", "Queen"};
-        for(int i = 0; i < 54; i++){
+        for(int i = 0; i < 2; i++){
             if (i % 2 == 0){
                 System.out.print("robot's card: ");
                 int randomCard = random.nextInt(possibleCards.length);
@@ -21,21 +21,32 @@ public class RatScrew {
                 userCardChosen = possibleCards[randomCard2];
                 System.out.println(userCardChosen);
             }
-            analyzePlay();
-
         }
+        analyzePlay();
+
     }
 
-    public static String analyzePlay(){
-        int i;
+    public static void analyzePlay(){
+        String[] faceCards = {"Ace", "Jack", "King", "Queen"};
+        boolean faceCard = false;
+        for (int i = 0; i < 4; i++){
+            if (robotCardChosen.equals(faceCards[i]) || userCardChosen.equals(faceCards[i])){
+                faceCard = true;
+
+            }
+        }
+
         if (robotCardChosen.equals(userCardChosen)) {
             answer = "Pair";
         } else if (robotCardChosen.equals("King") && userCardChosen.equals("Queen") || robotCardChosen.equals("Queen") && userCardChosen.equals("King")) {
             answer = "Marriage";
-        } else if (Integer.valueOf(robotCardChosen) + Integer.valueOf(userCardChosen) == 7){
+        } else if (!faceCard && Integer.valueOf(robotCardChosen) + Integer.valueOf(userCardChosen) == 7){
             answer = "7";
+        } else {
+            answer = "None";
         }
-        return answer;
+
+
     }
 
     public static boolean correctAnswer(String userAnswer){

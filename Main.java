@@ -12,6 +12,5 @@ public class Main {
             throw new RuntimeException(e);
         }
         String answer = scan.nextLine();
-
     }
 }
