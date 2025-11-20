@@ -4,26 +4,26 @@ public class RatScrew {
     private static String robotCardChosen;
     private static String userCardChosen;
     private static String answer;
+    private static int points = 0;
 
     public static void startPlay(){
         Random random = new Random();
 
         String[] possibleCards = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "King", "Queen"};
-        for(int i = 0; i < 2; i++){
-            if (i % 2 == 0){
-                System.out.print("robot's card: ");
-                int randomCard = random.nextInt(possibleCards.length);
-                robotCardChosen = possibleCards[randomCard];
-                System.out.println(robotCardChosen);
-            } else {
-                System.out.print("your card: ");
-                int randomCard2 = random.nextInt(possibleCards.length);
-                userCardChosen = possibleCards[randomCard2];
-                System.out.println(userCardChosen);
+            for (int i = 0; i < 2; i++) {
+                if (i % 2 == 0) {
+                    System.out.print("robot's card: ");
+                    int randomCard = random.nextInt(possibleCards.length);
+                    robotCardChosen = possibleCards[randomCard];
+                    System.out.println(robotCardChosen);
+                } else {
+                    System.out.print("your card: ");
+                    int randomCard2 = random.nextInt(possibleCards.length);
+                    userCardChosen = possibleCards[randomCard2];
+                    System.out.println(userCardChosen);
+                }
             }
-        }
-        analyzePlay();
-
+            analyzePlay();
     }
 
     public static void analyzePlay(){
@@ -32,12 +32,13 @@ public class RatScrew {
         for (int i = 0; i < 4; i++){
             if (robotCardChosen.equals(faceCards[i]) || userCardChosen.equals(faceCards[i])){
                 faceCard = true;
-
             }
         }
 
         if (robotCardChosen.equals(userCardChosen)) {
             answer = "Pair";
+        } else if (robotCardChosen.equals("Jack") || userCardChosen.equals("Jack")) {
+            answer = "Jack";
         } else if (robotCardChosen.equals("King") && userCardChosen.equals("Queen") || robotCardChosen.equals("Queen") && userCardChosen.equals("King")) {
             answer = "Marriage";
         } else if (!faceCard && Integer.valueOf(robotCardChosen) + Integer.valueOf(userCardChosen) == 7){
@@ -49,11 +50,13 @@ public class RatScrew {
 
     }
 
-    public static boolean correctAnswer(String userAnswer){
+    public static void correctAnswer(String userAnswer){
         if (userAnswer.equals(answer)){
-            return true;
-        } else {
-            return false;
+            points++;
         }
+    }
+
+    public static void printPoints(int numberOfPlays){
+        System.out.println("Points earned: " + points + "/" + numberOfPlays);
     }
 }
