@@ -6,7 +6,7 @@ public class RatScrew {
     private static String answer;
     private static int points = 0;
 
-    public static void startPlay(){
+    public static void onePlay(){
         Random random = new Random();
 
         String[] possibleCards = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "King", "Queen"};
@@ -27,11 +27,15 @@ public class RatScrew {
     }
 
     public static void analyzePlay(){
-        String[] faceCards = {"Ace", "Jack", "King", "Queen"};
-        boolean faceCard = false;
-        for (int i = 0; i < 4; i++){
-            if (robotCardChosen.equals(faceCards[i]) || userCardChosen.equals(faceCards[i])){
-                faceCard = true;
+        String[] faceCards = {"Jack", "King", "Queen"};
+        boolean robotFaceCard = false;
+        boolean userFaceCard = false;
+        for (int i = 0; i < 3; i++) {
+            if (robotCardChosen.equals(faceCards[i])) {
+                robotFaceCard = true;
+            }
+            if (userCardChosen.equals(faceCards[i])) {
+                userFaceCard = true;
             }
         }
 
@@ -41,8 +45,20 @@ public class RatScrew {
             answer = "Jack";
         } else if (robotCardChosen.equals("King") && userCardChosen.equals("Queen") || robotCardChosen.equals("Queen") && userCardChosen.equals("King")) {
             answer = "Marriage";
-        } else if (!faceCard && Integer.valueOf(robotCardChosen) + Integer.valueOf(userCardChosen) == 7){
-            answer = "7";
+        } else if (!robotFaceCard && !userFaceCard){
+            if (robotCardChosen.equals("Ace") || userCardChosen.equals("Ace")){
+                robotCardChosen = "1";
+                userCardChosen = "1";
+            }
+            if (Integer.valueOf(robotCardChosen) + Integer.valueOf(userCardChosen) == 7){
+                answer = "7";
+            } else if (Integer.valueOf(robotCardChosen) + Integer.valueOf(userCardChosen) == 5){
+                answer = "5";
+            } else{
+                answer = "None";
+            }
+        } else if (robotFaceCard && !userFaceCard || !robotFaceCard && userFaceCard){
+            answer = "Subject";
         } else {
             answer = "None";
         }
