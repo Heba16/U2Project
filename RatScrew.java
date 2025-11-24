@@ -46,20 +46,39 @@ public class RatScrew {
         } else if (robotCardChosen.equals("King") && userCardChosen.equals("Queen") || robotCardChosen.equals("Queen") && userCardChosen.equals("King")) {
             answer = "Marriage";
         } else if (!robotFaceCard && !userFaceCard){
-            if (robotCardChosen.equals("Ace") || userCardChosen.equals("Ace")){
+            if (robotCardChosen.equals("Ace")){
                 robotCardChosen = "1";
+            } else if (userCardChosen.equals("Ace")){
                 userCardChosen = "1";
             }
-            if (Integer.valueOf(robotCardChosen) + Integer.valueOf(userCardChosen) == 7){
+            if (Integer.parseInt(robotCardChosen) + Integer.parseInt(userCardChosen) == 7){
                 answer = "7";
-            } else if (Integer.valueOf(robotCardChosen) + Integer.valueOf(userCardChosen) == 5){
-                answer = "5";
+            } else if (Integer.parseInt(robotCardChosen) + Integer.parseInt(userCardChosen) == 10){
+                answer = "10";
+            } else if (Integer.parseInt(robotCardChosen) == Integer.parseInt(userCardChosen) - 1 || Integer.parseInt(userCardChosen) == Integer.parseInt(robotCardChosen) - 1){
+                answer = "Level";
             } else{
                 answer = "None";
             }
-        } else if (robotFaceCard && !userFaceCard || !robotFaceCard && userFaceCard){
-            answer = "Subject";
-        } else {
+        } else if (robotFaceCard && !userFaceCard){
+            if (userCardChosen.equals("Ace")){
+                userCardChosen = "1";
+            }
+            if(Integer.parseInt(userCardChosen) <= 5) {
+                answer = "Subject";
+            } else{
+                answer = "Citizen";
+            }
+        } else if (!robotFaceCard && userFaceCard) {
+            if (robotCardChosen.equals("Ace")){
+                robotCardChosen = "1";
+            }
+            if (Integer.parseInt(robotCardChosen) <= 5) {
+                answer = "Subject";
+            } else {
+                answer = "Citizen";
+            }
+        } else{
             answer = "None";
         }
 
@@ -69,10 +88,15 @@ public class RatScrew {
     public static void correctAnswer(String userAnswer){
         if (userAnswer.equals(answer)){
             points++;
+            System.out.println("yes");
         }
     }
 
     public static void printPoints(int numberOfPlays){
         System.out.println("Points earned: " + points + "/" + numberOfPlays);
+    }
+
+    public static void printInstructions(){
+        System.out.println("");
     }
 }
