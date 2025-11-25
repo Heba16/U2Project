@@ -6,7 +6,7 @@ public class RatScrew {
     private static String answer;
     private static int points = 0;
 
-    public static void onePlay(){
+    public static void oneRound(){
         Random random = new Random();
 
         String[] possibleCards = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "King", "Queen"};
@@ -55,8 +55,10 @@ public class RatScrew {
                 answer = "7";
             } else if (Integer.parseInt(robotCardChosen) + Integer.parseInt(userCardChosen) == 10){
                 answer = "10";
-            } else if (Integer.parseInt(robotCardChosen) == Integer.parseInt(userCardChosen) - 1 || Integer.parseInt(userCardChosen) == Integer.parseInt(robotCardChosen) - 1){
+            } else if (Integer.parseInt(robotCardChosen) == Integer.parseInt(userCardChosen) - 1 || Integer.parseInt(userCardChosen) == Integer.parseInt(robotCardChosen) - 1) {
                 answer = "Level";
+            }else if (Integer.parseInt(robotCardChosen) + Integer.parseInt(userCardChosen) >= 12){
+                answer = "High";
             } else{
                 answer = "None";
             }
@@ -92,11 +94,24 @@ public class RatScrew {
         }
     }
 
-    public static void printPoints(int numberOfPlays){
-        System.out.println("Points earned: " + points + "/" + numberOfPlays);
+    public static void printPoints(int numberOfRounds){
+        System.out.println("Points earned: " + points + "/" + numberOfRounds);
     }
 
     public static void printInstructions(){
-        System.out.println("");
+        System.out.println("Welcome to Heba's RatScrew! Here are the rules:");
+        System.out.println("Every 2 random cards you will have to recognize and write down a pattern");
+        System.out.println("Here are the patterns in precedence order:");
+        System.out.println("Pair - If two cards are the same number or face");
+        System.out.println("Jack - If a Jack card is played");
+        System.out.println("Marriage - If a Queen and a King card are both played");
+        System.out.println("Subject - If a either a King or Queen are played with another card with a value less than or equal to 5");
+        System.out.println("Citizen - If a either a King or Queen are played with another card with a value higher than 5");
+        System.out.println("Level - If either of the two cards is one less than the other");
+        System.out.println("7 - If the two cards add to 7");
+        System.out.println("10 - If the two cards add to 10");
+        System.out.println("High - If the two cards add to any number higher than 12");
+        System.out.println("None - If none of the previous patterns are found");
+        System.out.println();
     }
 }
