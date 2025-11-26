@@ -41,7 +41,9 @@ public class RatScrew {
 
         if (robotCardChosen.equals(userCardChosen)) {
             answer = "Pair";
-        } else if (robotCardChosen.equals("Jack") || userCardChosen.equals("Jack")) {
+        } else if (robotCardChosen.equals("Jack") && userCardChosen.equals("Queen") || robotCardChosen.equals("Queen") && userCardChosen.equals("Jack")) {
+            answer = "Affair";
+        }else if (robotCardChosen.equals("Jack") || userCardChosen.equals("Jack")) {
             answer = "Jack";
         } else if (robotCardChosen.equals("King") && userCardChosen.equals("Queen") || robotCardChosen.equals("Queen") && userCardChosen.equals("King")) {
             answer = "Marriage";
@@ -90,7 +92,9 @@ public class RatScrew {
     public static void correctAnswer(String userAnswer){
         if (userAnswer.equals(answer)){
             points++;
-            System.out.println("yes");
+            System.out.println("Correct!");
+        } else {
+            System.out.println("Wrong!");
         }
     }
 
@@ -100,17 +104,18 @@ public class RatScrew {
 
     public static void printInstructions(){
         System.out.println("Welcome to Heba's RatScrew! Here are the rules:");
-        System.out.println("Every 2 random cards you will have to recognize and write down a pattern");
+        System.out.println("Every 2 random cards (a round) you will have to recognize and write down a pattern");
         System.out.println("Here are the patterns in precedence order:");
         System.out.println("Pair - If two cards are the same number or face");
+        System.out.println("Affair - If a Queen and a Jack card are both played");
         System.out.println("Jack - If a Jack card is played");
         System.out.println("Marriage - If a Queen and a King card are both played");
         System.out.println("Subject - If a either a King or Queen are played with another card with a value less than or equal to 5");
         System.out.println("Citizen - If a either a King or Queen are played with another card with a value higher than 5");
-        System.out.println("Level - If either of the two cards is one less than the other");
+        System.out.println("Level - If either of the two cards are one less than the other");
         System.out.println("7 - If the two cards add to 7");
         System.out.println("10 - If the two cards add to 10");
-        System.out.println("High - If the two cards add to any number higher than 12");
+        System.out.println("High - If the two cards add to any number higher than or equal to 12");
         System.out.println("None - If none of the previous patterns are found");
         System.out.println();
     }
